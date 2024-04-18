@@ -1,5 +1,5 @@
 services:
-  ffc-template-node:
+  coreai-mcu-persona:
     command: >
       sh -c "npm run test:watch"
     volumes:
