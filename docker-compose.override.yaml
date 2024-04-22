@@ -1,6 +1,3 @@
-# This override file should be used when running this service in isolation
-# to provide dependencies and expose ports for local testing
-
 services:
   coreai-mcu-persona:
     build:
@@ -13,3 +10,16 @@ services:
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
+  
+  coreai-mcu-persona-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: coreai-mcu-persona-azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - ./azurite_data:/data
+
+volumes:
+  azurite_data:
