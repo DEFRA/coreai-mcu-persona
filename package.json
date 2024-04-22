@@ -1,6 +1,6 @@
 {
   "name": "coreai-mcu-persona",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Backend service for storing and retreiving LLM personas",
   "homepage": "https://github.com/DEFRA/coreai-mcu-persona",
   "main": "app/index.js",

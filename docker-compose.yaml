@@ -8,6 +8,7 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: coreai-mcu-persona-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+      AZURE_STORAGE_ACCOUNT: ${AZURE_STORAGE_ACCOUNT:-devstoreaccount1}
 
   coreai-mcu-persona-azurite:
     image: mcr.microsoft.com/azure-storage/azurite
