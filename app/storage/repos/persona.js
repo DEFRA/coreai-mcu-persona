@@ -51,15 +51,33 @@ const addPersona = async (persona) => {
 
   const exists = await checkEntityExists(enriched.partitionKey, enriched.rowKey)
 
-  if (!exists) {
-    await tableClient.createEntity({ ...enriched, version: 1 })
-    await tableClient.createEntity({ ...enriched, rowKey: `${enriched.rowKey}:1`, version: 1 })
-  } else {
-    const version = parseInt(exists.version) + 1
+  if (exists) {
+    const error = new Error(`Persona ${enriched.name} already exists`)
+    error.type = 'CONFLICT'
 
-    await tableClient.updateEntity({ ...enriched, version })
-    await tableClient.createEntity({ ...enriched, rowKey: `${enriched.rowKey}:${version}`, version })
+    throw error
   }
+
+  await tableClient.createEntity({ ...enriched, version: 1 })
+  await tableClient.createEntity({ ...enriched, rowKey: `${enriched.rowKey}:1`, version: 1 })
+}
+
+const updatePersona = async (persona) => {
+  const enriched = enrichPersona(persona)
+
+  const exists = await checkEntityExists(enriched.partitionKey, enriched.rowKey)
+
+  if (!exists) {
+    const error = new Error(`Persona ${enriched.name} does not exist`)
+    error.type = 'NOT_FOUND'
+
+    throw error
+  }
+
+  const version = parseInt(exists.version) + 1
+
+  await tableClient.updateEntity({ ...enriched, version })
+  await tableClient.createEntity({ ...enriched, rowKey: `${enriched.rowKey}:${version}`, version })
 }
 
 const getPersonas = async (project, type) => {
@@ -95,8 +113,8 @@ const getPersonas = async (project, type) => {
   return reduced
 }
 
-const getPersona = async (project, modelId, type, name, version) => {
-  const partitionKey = `${project}_${modelId}_${type}`
+const getPersona = async (project, type, name, version) => {
+  const partitionKey = `${project}_${type}`
   const rowKey = calculateRowKey(name, version)
 
   try {
@@ -114,6 +132,7 @@ const getPersona = async (project, modelId, type, name, version) => {
 
 module.exports = {
   addPersona,
+  updatePersona,
   getPersona,
   getPersonas,
   initialiseTable

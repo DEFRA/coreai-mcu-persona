@@ -5,6 +5,8 @@ services:
       target: production
     image: coreai-mcu-persona
     container_name: coreai-mcu-persona
+    depends_on:
+      - coreai-mcu-persona-azurite
     environment:
       APPINSIGHTS_CLOUDROLE: coreai-mcu-persona-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
