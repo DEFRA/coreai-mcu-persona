@@ -1,9 +1,9 @@
 environment: production
 environmentCode:
-name: ffc-template-node
-namespace: ffc-demo
-workstream: ffc-demo
-image: ffc-template-node
+name: coreai-mcu-persona
+namespace: coreai-mcu
+workstream: coreai-mcu
+image: coreai-mcu-persona
 
 labels:
   component: service
@@ -12,10 +12,10 @@ appInsights:
   connectionString:
 
 containerConfigMap:
-  name: ffc-template-node-config-map
+  name: coreai-mcu-persona-config-map
 
 containerSecret:
-  name: ffc-template-node-container-secret
+  name: coreai-mcu-persona-container-secret
   type: Opaque
 
 deployment: {}

@@ -1,15 +1,25 @@
-# This override file should be used when running this service in isolation
-# to provide dependencies and expose ports for local testing
-
 services:
-  ffc-template-node:
+  coreai-mcu-persona:
     build:
       target: development
-    image: ffc-template-node-development
-    container_name: ffc-template-node-development
+    image: coreai-mcu-persona-development
+    container_name: coreai-mcu-persona-development
     ports:
       - "3000:3000"
       - "9229:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
+  
+  coreai-mcu-persona-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: coreai-mcu-persona-azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - ./azurite_data:/data
+
+volumes:
+  azurite_data:
