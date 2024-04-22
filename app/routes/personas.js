@@ -1,5 +1,5 @@
 const Joi = require('joi')
-const { getPersona, getPersonas, addPersona, updatePersona } = require("../storage/repos/persona")
+const { getPersona, getPersonas, addPersona, updatePersona } = require('../storage/repos/persona')
 
 module.exports = [{
   method: 'GET',
@@ -58,8 +58,8 @@ module.exports = [{
     }
 
     return h.response().code(201)
-  },
-  }, {
+  }
+}, {
   method: 'PUT',
   path: '/personas/{project}/{type}/{name}',
   options: {
