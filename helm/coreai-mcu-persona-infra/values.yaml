@@ -1,0 +1,7 @@
+storageAccounts:
+  - name: 'coreaimcu'
+    owner: 'no'
+    tables: 
+      - name: 'personas'
+        roleAssignments:
+          - roleName: 'TableDataContributor'
